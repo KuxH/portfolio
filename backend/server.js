@@ -16,6 +16,12 @@ app.use(express.json())
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 app.use("/api/contact", contactRoutes)
 
+// Error-handling middleware (should be after all other app.use and routes)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
+
 // Test route
 app.get("/api/hello", (req, res) => {
   res.json({ message: "Backend is running!" })
