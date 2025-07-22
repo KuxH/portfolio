@@ -7,8 +7,46 @@ import {
   FaLinkedin,
   FaYoutube,
 } from "react-icons/fa"
+import { useState } from "react"
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" })
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState("")
+  const [error, setError] = useState("")
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+    setSuccess("")
+    try {
+      const API_URL = process.env.REACT_APP_API_URL || ""
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Something went wrong")
+      setSuccess("Message sent! I'll get back to you soon.")
+      setForm({ name: "", email: "", message: "" })
+      // Open WhatsApp with pre-filled message
+      const waMsg = encodeURIComponent(
+        `Hi, I'm ${form.name} (${form.email}): ${form.message}`
+      )
+      window.open(`https://wa.me/9845099270?text=${waMsg}`, "_blank")
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -21,6 +59,49 @@ export default function Contact() {
         discuss a project, share ideas, or simply say hello, I’d love to hear
         from you. Let’s build something amazing together!
       </p>
+
+      {/* Contact Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white/10 rounded-xl p-8 mb-12 w-full max-w-md space-y-6 shadow-lg"
+      >
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={form.name}
+          onChange={handleChange}
+          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={form.message}
+          onChange={handleChange}
+          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows={5}
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 rounded transition"
+          disabled={loading}
+        >
+          {loading ? "Sending..." : "Send Message"}
+        </button>
+        {success && <p className="text-green-400 mt-2">{success}</p>}
+        {error && <p className="text-red-400 mt-2">{error}</p>}
+      </form>
 
       <div className="flex justify-center gap-12 flex-wrap text-gray-400">
         {[
