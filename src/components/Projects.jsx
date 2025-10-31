@@ -22,7 +22,7 @@ export default function Projects() {
       title: "Hetauda Book House",
       description:
         "Online bookstore platform with admin dashboard for managing inventory and orders.",
-      url: "https://your-hetauda-book-house-link.com",
+      url: "https://github.com/KuxH/hetaudabookhouse",
       tags: ["React", "Tailwind", "Firebase"],
       roles: ["Full Stack Developer"],
     },
