@@ -94,7 +94,7 @@ export default function Navbar() {
                 }`
               }
             >
-              Works
+              Projects
             </NavLink>
           </li>
 
