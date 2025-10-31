@@ -6,7 +6,7 @@ export default function AboutEducation() {
       schoolUrl: "https://www.ncit.edu.np/",
       university: "Pokhara University",
       universityUrl: "https://pu.edu.np/",
-      year: "2019 - 2024",
+      year: "2019 - 2025",
     },
     {
       degree: "+2, Science",
