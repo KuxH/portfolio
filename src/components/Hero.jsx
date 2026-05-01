@@ -13,7 +13,7 @@ import {
   FaCss3Alt,
   FaPenNib,
   FaPaintBrush,
-} from "react-icons/fa"
+} from "react-icons/fa";
 
 import {
   SiTailwindcss,
@@ -25,14 +25,11 @@ import {
   SiTypescript,
   SiPostman,
   SiFigma,
+} from "react-icons/si";
 
-} from "react-icons/si"
+import { motion } from "framer-motion";
 
-
-
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
-import "./Hero.css"
+import "./Hero.css";
 
 export default function Hero() {
   // ================= SKILLS =================
@@ -54,26 +51,21 @@ export default function Hero() {
     { name: "Photoshop", Icon: FaPaintBrush },
     { name: "Illustrator", Icon: FaPenNib },
     { name: "Figma", Icon: SiFigma },
-  ]
-
-
-
-  
+  ];
 
   // ================= ANIMATION =================
   const container = {
     hidden: {},
     show: { transition: { staggerChildren: 0.15 } },
-  }
+  };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <section className="relative min-h-screen text-white px-6 py-20 overflow-hidden animated-bg">
-
       {/* CURSOR GLOW */}
       <div className="cursor-glow fixed w-40 h-40 bg-blue-500/20 blur-3xl rounded-full pointer-events-none" />
 
@@ -83,7 +75,6 @@ export default function Hero() {
         animate="show"
         className="relative max-w-7xl mx-auto space-y-16"
       >
-
         {/* ================= HEADER ================= */}
         <motion.div variants={item}>
           <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -101,9 +92,7 @@ export default function Hero() {
 
           <p className="mt-3 text-lg text-blue-400">IT Engineer</p>
 
-          <p className="text-lg text-gray-400">
-            Full-Stack Developer
-          </p>
+          <p className="text-lg text-gray-400">Full-Stack Developer</p>
 
           {/* Resume */}
           <div className="mt-6">
@@ -118,15 +107,18 @@ export default function Hero() {
 
         {/* ================= GRID ================= */}
         <div className="grid md:grid-cols-2 gap-12">
-
           {/* LEFT */}
           <motion.div variants={item}>
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl space-y-8">
-
               <div>
                 <h2 className="text-2xl font-semibold mb-3">About Me</h2>
                 <p className="text-gray-300">
-                I build scalable web applications and intuitive user experiences, combining clean design with strong engineering fundamentals. Focused on full-stack development, system design, and real-world problem solving through production-ready projects, automation tools, and modern UI systems.
+                  I build scalable web applications and intuitive user
+                  experiences, combining clean design with strong engineering
+                  fundamentals. Focused on full-stack development, system
+                  design, and real-world problem solving through
+                  production-ready projects, automation tools, and modern UI
+                  systems.
                 </p>
               </div>
 
@@ -139,7 +131,8 @@ export default function Hero() {
                       Bachelor’s in Information Technology
                     </p>
                     <p className="text-sm text-gray-400">
-                      Nepal College of Information Technology (Pokhara University)
+                      Nepal College of Information Technology (Pokhara
+                      University)
                     </p>
                     <p className="text-sm text-gray-500">2019 – 2025</p>
                   </li>
@@ -181,13 +174,11 @@ export default function Hero() {
                   </a>
                 </div>
               </div>
-
             </div>
           </motion.div>
 
           {/* RIGHT */}
           <motion.div variants={item} className="space-y-10">
-
             {/* SKILLS */}
             <div className="flex flex-wrap gap-3">
               {skills.map(({ name, Icon }, i) => (
@@ -219,17 +210,26 @@ export default function Hero() {
             <div>
               <h2 className="text-xl font-semibold mb-3">Socials</h2>
               <div className="flex gap-6 flex-wrap">
-                <a href="https://www.instagram.com/kuxh.xp/"><FaInstagram size={22} /></a>
-                <a href="https://www.tiktok.com/@kuxh.xp"><SiTiktok size={22} /></a>
-                <a href="https://www.linkedin.com/in/kuxh/"><FaLinkedin size={22} /></a>
-                <a href="https://github.com/KuxH"><FaGithub size={22} /></a>
-                <a href="https://www.youtube.com/@kuxh_xp"><FaYoutube size={22} /></a>
+                <a href="https://www.instagram.com/kuxh.xp/">
+                  <FaInstagram size={22} />
+                </a>
+                <a href="https://www.tiktok.com/@kuxh.xp">
+                  <SiTiktok size={22} />
+                </a>
+                <a href="https://www.linkedin.com/in/kuxh/">
+                  <FaLinkedin size={22} />
+                </a>
+                <a href="https://github.com/KuxH">
+                  <FaGithub size={22} />
+                </a>
+                <a href="https://www.youtube.com/@kuxh_xp">
+                  <FaYoutube size={22} />
+                </a>
               </div>
             </div>
-
           </motion.div>
         </div>
       </motion.div>
     </section>
-  )
+  );
 }

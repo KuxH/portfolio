@@ -34,7 +34,6 @@ export default function Projects() {
 
       details:
         "Includes admin panel, order management, and Firebase integration for authentication and database handling.",
-      url: "https://your-hetauda-book-house-link.com",
 
       url: "https://github.com/KuxH/hetaudabookhouse",
 
