@@ -11,7 +11,10 @@ import {
   FaInstagram,
   FaYoutube,
   FaCss3Alt,
+  FaPenNib,
+  FaPaintBrush,
 } from "react-icons/fa"
+
 import {
   SiTailwindcss,
   SiExpress,
@@ -21,13 +24,18 @@ import {
   SiCpanel,
   SiTypescript,
   SiPostman,
-  SiAdobephotoshop,
-  SiAdobeillustrator,
   SiFigma,
+
 } from "react-icons/si"
+
+
+
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import "./Hero.css"
 
 export default function Hero() {
+  // ================= SKILLS =================
   const skills = [
     { name: "HTML", Icon: FaHtml5 },
     { name: "CSS", Icon: FaCss3Alt },
@@ -43,173 +51,185 @@ export default function Hero() {
     { name: "C++", Icon: SiCplusplus },
     { name: "cPanel", Icon: SiCpanel },
     { name: "Postman", Icon: SiPostman },
-    { name: "Photoshop", Icon: SiAdobephotoshop },
-    { name: "Illustrator", Icon: SiAdobeillustrator },
+    { name: "Photoshop", Icon: FaPaintBrush },
+    { name: "Illustrator", Icon: FaPenNib },
     { name: "Figma", Icon: SiFigma },
   ]
 
+
+
+  
+
+  // ================= ANIMATION =================
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.15 } },
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  }
+
   return (
-    <section className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-6 py-20 font-sans">
-      <div className="max-w-7xl mx-auto space-y-16">
-        {/* Header (Full Width) */}
-        <div className="text-left">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-2 leading-tight">
+    <section className="relative min-h-screen text-white px-6 py-20 overflow-hidden animated-bg">
+
+      {/* CURSOR GLOW */}
+      <div className="cursor-glow fixed w-40 h-40 bg-blue-500/20 blur-3xl rounded-full pointer-events-none" />
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative max-w-7xl mx-auto space-y-16"
+      >
+
+        {/* ================= HEADER ================= */}
+        <motion.div variants={item}>
+          <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
             Kushal Neupane
           </h1>
-          <p className="text-lg sm:text-xl font-semibold text-gray-200">
-            IT Engineer
-          </p>
-          <p className="text-base sm:text-lg text-gray-400">
-            Web Developer • UI/UX Designer
-          </p>
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 bg-blue-600 hover:bg-blue-800 text-white font-semibold px-6 py-2 rounded-full shadow transition"
-          >
-            View Resume
-          </a>
-        </div>
 
-        {/* Grid: */}
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* LEFT - About Me & Education */}
-          <div className="text-left text-base md:text-lg">
-            <div className="bg-white/10 p-6 rounded-lg space-y-8">
-              {/* About Me */}
+          {/* Availability */}
+          <div className="mt-3 flex items-center gap-3">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative h-3 w-3 rounded-full bg-green-500"></span>
+            </span>
+            <p className="text-green-400 text-sm">Available for work</p>
+          </div>
+
+          <p className="mt-3 text-lg text-blue-400">IT Engineer</p>
+
+          <p className="text-lg text-gray-400">
+            Full-Stack Developer
+          </p>
+
+          {/* Resume */}
+          <div className="mt-6">
+            <a
+              href="/resume.pdf"
+              className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 hover:scale-105 transition"
+            >
+              View Resume
+            </a>
+          </div>
+        </motion.div>
+
+        {/* ================= GRID ================= */}
+        <div className="grid md:grid-cols-2 gap-12">
+
+          {/* LEFT */}
+          <motion.div variants={item}>
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl space-y-8">
+
               <div>
-                <h2 className="text-2xl font-bold mb-3 text-white">About Me</h2>
-                <p className="text-gray-300 leading-relaxed">
-                  I'm an IT engineer, web developer, and UI/UX designer
-                  dedicated to creating websites and web applications tailored
-                  to your needs. I’m passionate about learning new technologies
-                  and solving problems through code. Outside of work, I enjoy
-                  gaming and am a football enthusiast.
+                <h2 className="text-2xl font-semibold mb-3">About Me</h2>
+                <p className="text-gray-300">
+                I build scalable web applications and intuitive user experiences, combining clean design with strong engineering fundamentals. Focused on full-stack development, system design, and real-world problem solving through production-ready projects, automation tools, and modern UI systems.
                 </p>
               </div>
 
-              {/* Education */}
               <div>
-                <h2 className="text-2xl font-bold mb-3 text-white">
-                  Education
-                </h2>
+                <h2 className="text-2xl font-semibold mb-3">Education</h2>
+
                 <ul className="space-y-4 text-gray-300">
                   <li>
                     <p className="font-semibold text-white">
-                      Bachelor's in Information Technology
+                      Bachelor’s in Information Technology
                     </p>
                     <p className="text-sm text-gray-400">
-                      Nepal College of Information Technology (Pokhara
-                      University)
+                      Nepal College of Information Technology (Pokhara University)
                     </p>
-                    <p className="text-sm text-gray-400">2019 – 2025</p>
+                    <p className="text-sm text-gray-500">2019 – 2025</p>
                   </li>
+
                   <li>
                     <p className="font-semibold text-white">+2 in Science</p>
                     <p className="text-sm text-gray-400">
                       Hetauda School of Management and Social Sciences
                     </p>
-                    <p className="text-sm text-gray-400">2017 – 2019</p>
+                    <p className="text-sm text-gray-500">2017 – 2019</p>
                   </li>
                 </ul>
               </div>
-            </div>
-          </div>
 
-          {/* RIGHT - Contact & Skills */}
-          <div className="space-y-10">
-            {/* Skills */}
-            <div>
-              <div className="flex flex-wrap gap-3">
-                {skills.map(({ name, Icon }, i) => (
-                  <span
-                    key={i}
-                    className="bg-white/20 text-white text-sm px-4 py-2 rounded-full font-medium flex items-center gap-2"
+              <div>
+                <h2 className="text-2xl font-semibold mb-3">
+                  Engineering Credentials
+                </h2>
+
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="font-semibold text-white">
+                    Licensed IT Engineer
+                  </p>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Nepal Engineering Council
+                  </p>
+
+                  <p className="text-sm text-gray-300 mt-2">
+                    Registration No: <span className="text-white">98513</span>
+                  </p>
+
+                  <a
+                    href="https://nec.gov.np/registration/98513"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3 text-blue-400"
                   >
-                    <Icon size={16} />
-                    {name}
-                  </span>
-                ))}
+                    Verify Credential ↗
+                  </a>
+                </div>
               </div>
+
             </div>
-            {/* Contact */}
-            <div className="mb-8">
+          </motion.div>
+
+          {/* RIGHT */}
+          <motion.div variants={item} className="space-y-10">
+
+            {/* SKILLS */}
+            <div className="flex flex-wrap gap-3">
+              {skills.map(({ name, Icon }, i) => (
+                <motion.span
+                  key={i}
+                  whileHover={{ scale: 1.1 }}
+                  className="bg-white/10 px-4 py-2 rounded-full flex items-center gap-2"
+                >
+                  <Icon size={14} />
+                  {name}
+                </motion.span>
+              ))}
+            </div>
+
+            {/* CONTACT */}
+            <div>
               <h2 className="text-xl font-semibold mb-3">Contact</h2>
               <div className="flex gap-6">
-                <a
-                  href="https://wa.me/9779845099270"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="WhatsApp"
-                >
-                  <FaWhatsapp size={24} />
+                <a href="https://wa.me/9779845099270">
+                  <FaWhatsapp size={22} />
                 </a>
-                <a
-                  href="mailto:thisiskush7447@gmail.com"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="Email"
-                >
-                  <FaEnvelope size={24} />
+                <a href="mailto:thisiskush7447@gmail.com">
+                  <FaEnvelope size={22} />
                 </a>
               </div>
             </div>
 
-            {/* Socials */}
+            {/* SOCIALS */}
             <div>
               <h2 className="text-xl font-semibold mb-3">Socials</h2>
-              <div className="flex gap-6">
-                <a
-                  href="https://www.instagram.com/kuxh.xp/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="Instagram"
-                >
-                  <FaInstagram size={24} />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@kuxh.xp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="TikTok"
-                >
-                  <SiTiktok size={24} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/kuxh/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="LinkedIn"
-                >
-                  <FaLinkedin size={24} />
-                </a>
-                <a
-                  href="https://github.com/KuxH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="GitHub"
-                >
-                  <FaGithub size={24} />
-                </a>
-                <a
-                  href="https://www.youtube.com/@kuxh_xp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/20 hover:bg-white/40 p-4 rounded-full transition hover:scale-110"
-                  title="Youtube"
-                >
-                  <FaYoutube size={24} />
-                </a>
+              <div className="flex gap-6 flex-wrap">
+                <a href="https://www.instagram.com/kuxh.xp/"><FaInstagram size={22} /></a>
+                <a href="https://www.tiktok.com/@kuxh.xp"><SiTiktok size={22} /></a>
+                <a href="https://www.linkedin.com/in/kuxh/"><FaLinkedin size={22} /></a>
+                <a href="https://github.com/KuxH"><FaGithub size={22} /></a>
+                <a href="https://www.youtube.com/@kuxh_xp"><FaYoutube size={22} /></a>
               </div>
             </div>
-          </div>
+
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

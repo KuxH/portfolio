@@ -1,11 +1,17 @@
 import { FaArrowUpRightFromSquare } from "react-icons/fa6"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
 
 export default function Projects() {
+  const [activeIndex, setActiveIndex] = useState(null)
+
   const projects = [
     {
       title: "E-Pharma Website",
       description:
         "A platform to order medicines online from verified pharmacies with prescription uploads.",
+      details:
+        "Includes secure authentication, prescription validation, and real-time order tracking system with scalable backend architecture.",
       url: "https://your-epharma-website-link.com",
       tags: ["React", "Node.js", "MongoDB"],
       roles: ["Full Stack Developer"],
@@ -14,6 +20,8 @@ export default function Projects() {
       title: "Effortless Beauty",
       description:
         "Helps users discover and book makeup artists nearby with user ratings.",
+      details:
+        "Focused on UI/UX with booking flow optimization, responsive design, and smooth user experience across devices.",
       url: "https://github.com/KuxH/Effortlessbeauty",
       tags: ["React", "Express", "MERN"],
       roles: ["Frontend Developer", "UI Designer"],
@@ -22,6 +30,8 @@ export default function Projects() {
       title: "Hetauda Book House",
       description:
         "Online bookstore platform with admin dashboard for managing inventory and orders.",
+      details:
+        "Includes admin panel, order management, and Firebase integration for authentication and database handling.",
       url: "https://your-hetauda-book-house-link.com",
       tags: ["React", "Tailwind", "Firebase"],
       roles: ["Full Stack Developer"],
@@ -29,69 +39,118 @@ export default function Projects() {
     {
       title: "Healthline Nepal",
       description:
-        "A full-stack MERN application for a polyclinic featuring doctor photo uploads using Multer, service listings, and a dynamic contact form. Designed with a clean UI and deployed for live access.",
+        "A full-stack MERN application for a polyclinic with doctor uploads and services.",
+      details:
+        "Built using Multer for image uploads, dynamic service listings, and optimized backend for performance and scalability.",
       url: "https://healthlinenepal.org/",
-      tags: ["React.js", "Node.js", "Express.js", "MongoDB", "Multer"],
+      tags: ["React", "Node", "Express", "MongoDB"],
       roles: ["Full Stack Developer"],
     },
   ]
 
+  const toggle = (index) => {
+    setActiveIndex(activeIndex === index ? null : index)
+  }
+
   return (
     <section
       id="projects"
-      className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-4 py-24 flex items-center justify-center"
+      className="relative min-h-screen px-6 py-24 text-white overflow-hidden animated-bg"
     >
-      <div className="max-w-6xl w-full text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-12">🚀 My Projects</h2>
-        <div className="grid md:grid-cols-3 gap-10">
-          {projects.map((project, index) => (
-            <a
-              key={index}
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group bg-gray-800 hover:bg-gray-700 transition-all duration-300 p-6 rounded-2xl shadow-xl text-left"
-            >
-              {/* Title & Icon */}
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold">{project.title}</h3>
-                <FaArrowUpRightFromSquare className="text-gray-400 group-hover:text-white transition" />
-              </div>
+      {/* Glow */}
+      <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-blue-500/20 blur-[120px]" />
+      <div className="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] bg-purple-500/20 blur-[120px]" />
 
-              {/* Description */}
-              <p className="text-gray-300 text-sm mb-6">
-                {project.description}
-              </p>
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">
+          🚀 My Projects
+        </h2>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-2">
-                {project.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => {
+            const isOpen = activeIndex === index
 
-              {/* Roles */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.roles &&
-                  project.roles.map((role, i) => (
-                    <span
-                      key={i}
-                      className="text-xs bg-blue-500/20 px-3 py-1 rounded-full text-blue-200"
+            return (
+              <motion.div
+                key={index}
+                layout
+                onClick={() => toggle(index)}
+                whileHover={{ y: -8, rotateX: 2, rotateY: -2 }}
+                className="cursor-pointer group"
+              >
+                <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:border-blue-500/40 hover:shadow-2xl">
+
+                  {/* Header */}
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-xl font-semibold">
+                        {project.title}
+                      </h3>
+
+                      {/* Roles */}
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {project.roles.map((role, i) => (
+                          <span
+                            key={i}
+                            className="text-xs bg-blue-500/20 px-3 py-1 rounded-full text-blue-300"
+                          >
+                            {role}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      {role}
-                    </span>
-                  ))}
-              </div>
+                      <FaArrowUpRightFromSquare className="text-gray-400 group-hover:text-white transition" />
+                    </a>
+                  </div>
 
-              {/* Hover effect */}
-              <div className="absolute inset-0 border border-white/10 rounded-2xl scale-100 group-hover:scale-105 transition-all duration-300 pointer-events-none" />
-            </a>
-          ))}
+                  {/* Description */}
+                  <p className="text-gray-300 text-sm mt-4">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* EXPAND */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-4 border-t border-white/10 pt-4">
+                          <p className="text-gray-400 text-sm leading-relaxed">
+                            {project.details}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Hover Glow Border */}
+                  <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-blue-500/30 transition pointer-events-none" />
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

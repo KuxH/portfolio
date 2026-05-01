@@ -24,6 +24,10 @@ export default function Contact() {
     setLoading(true)
     setError("")
     setSuccess("")
+
+    const messageText = `Hi, I'm ${form.name} (${form.email}): ${form.message}`
+    const waMsg = encodeURIComponent(messageText)
+
     try {
       const API_URL = process.env.REACT_APP_API_URL || ""
       const res = await fetch(`${API_URL}/api/contact`, {
@@ -31,15 +35,23 @@ export default function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       })
+
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || "Something went wrong")
+
       setSuccess("Message sent! I'll get back to you soon.")
-      setForm({ name: "", email: "", message: "" })
-      // Open WhatsApp with pre-filled message
-      const waMsg = encodeURIComponent(
-        `Hi, I'm ${form.name} (${form.email}): ${form.message}`
-      )
+
       window.open(`https://wa.me/9845099270?text=${waMsg}`, "_blank")
+
+      const emailSubject = encodeURIComponent("New Contact Message")
+      const emailBody = encodeURIComponent(messageText)
+
+      window.open(
+        `mailto:thisiskush7447@gmail.com?subject=${emailSubject}&body=${emailBody}`,
+        "_blank"
+      )
+
+      setForm({ name: "", email: "", message: "" })
     } catch (err) {
       setError(err.message)
     } finally {
@@ -50,108 +62,107 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen flex flex-col justify-center items-center px-6 py-32 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-center"
+      className="relative min-h-screen px-6 py-24 text-white overflow-hidden animated-bg"
     >
-      <h2 className="text-4xl font-bold mb-8 text-white">Connect With Me</h2>
-      <p className="text-gray-300 mb-12 max-w-xl">
-        Feel free to connect through any platform below! I’m open to
-        collaboration, questions, or just a friendly chat. Whether you want to
-        discuss a project, share ideas, or simply say hello, I’d love to hear
-        from you. Let’s build something amazing together!
-      </p>
+      {/* SAME GLOW STYLE AS PROJECTS */}
+      <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-blue-500/20 blur-[120px]" />
+      <div className="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] bg-purple-500/20 blur-[120px]" />
 
-      {/* Contact Form */}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white/10 rounded-xl p-8 mb-12 w-full max-w-md space-y-6 shadow-lg"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          value={form.message}
-          onChange={handleChange}
-          className="w-full px-4 py-2 rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          rows={5}
-          required
-        />
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 rounded transition"
-          disabled={loading}
-        >
-          {loading ? "Sending..." : "Send Message"}
-        </button>
-        {success && <p className="text-green-400 mt-2">{success}</p>}
-        {error && <p className="text-red-400 mt-2">{error}</p>}
-      </form>
+      <div className="max-w-6xl mx-auto text-center">
 
-      <div className="flex justify-center gap-12 flex-wrap text-gray-400">
-        {[
-          {
-            href: "https://wa.me/9845099270",
-            Icon: FaWhatsapp,
-            title: "WhatsApp",
-          },
-          {
-            href: "https://www.instagram.com/kuxh.xp/",
-            Icon: FaInstagram,
-            title: "Instagram",
-          },
-          {
-            href: "https://www.tiktok.com/@kuxh.xp",
-            Icon: FaTiktok,
-            title: "TikTok",
-          },
-          {
-            href: "https://github.com/KuxH",
-            Icon: FaGithub,
-            title: "GitHub",
-          },
-          {
-            href: "mailto:thisiskush7447@gmail.com",
-            Icon: FaEnvelope,
-            title: "Email",
-          },
-          {
-            href: "https://www.linkedin.com/in/kuxh/",
-            Icon: FaLinkedin,
-            title: "LinkedIn",
-          },
-          {
-            href: "https://www.youtube.com/@kuxh_xp",
-            Icon: FaYoutube,
-            title: "YouTube",
-          },
-        ].map(({ href, Icon, title }) => (
-          <a
-            key={title}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={title}
-            className="p-4 rounded-full hover:text-white transition-colors duration-300"
+        {/* HEADER */}
+        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          Connect With Me
+        </h2>
+
+        <p className="text-gray-300 max-w-2xl mx-auto mb-16">
+          Feel free to connect through any platform below! I’m open to collaboration, questions, or just a friendly chat.
+        </p>
+
+        {/* GRID like Projects */}
+        <div className="grid md:grid-cols-2 gap-10 text-left">
+
+          {/* FORM CARD */}
+          <form
+            onSubmit={handleSubmit}
+            className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-blue-500/40 transition shadow-xl"
           >
-            <Icon size={32} />
-          </a>
-        ))}
+            <h3 className="text-xl font-semibold mb-6">Send Message</h3>
+
+            <input
+              name="name"
+              placeholder="Your Name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full mb-4 px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-blue-500 outline-none"
+              required
+            />
+
+            <input
+              name="email"
+              placeholder="Your Email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full mb-4 px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-blue-500 outline-none"
+              required
+            />
+
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={form.message}
+              onChange={handleChange}
+              rows={5}
+              className="w-full mb-4 px-4 py-3 rounded-lg bg-black/30 border border-white/10 focus:border-blue-500 outline-none resize-none"
+              required
+            />
+
+            <button
+              disabled={loading}
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:opacity-90 transition font-semibold"
+            >
+              {loading ? "Sending..." : "Send Message"}
+            </button>
+
+            {success && (
+              <p className="text-green-400 text-sm mt-3">{success}</p>
+            )}
+            {error && (
+              <p className="text-red-400 text-sm mt-3">{error}</p>
+            )}
+          </form>
+
+          {/* SOCIAL CARD (PROJECT STYLE MATCHED) */}
+          <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-purple-500/40 transition shadow-xl">
+
+            <h3 className="text-xl font-semibold mb-6">
+              Socials
+            </h3>
+
+            <div className="grid grid-cols-3 gap-6 text-gray-400">
+              {[
+                { href: "https://wa.me/9845099270", Icon: FaWhatsapp },
+                { href: "https://www.instagram.com/kuxh.xp/", Icon: FaInstagram },
+                { href: "https://www.tiktok.com/@kuxh.xp", Icon: FaTiktok },
+                { href: "https://github.com/KuxH", Icon: FaGithub },
+                { href: "mailto:thisiskush7447@gmail.com", Icon: FaEnvelope },
+                { href: "https://www.linkedin.com/in/kuxh/", Icon: FaLinkedin },
+                { href: "https://www.youtube.com/@kuxh_xp", Icon: FaYoutube },
+              ].map(({ href, Icon }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl hover:bg-white/10 hover:text-white transition group"
+                >
+                  <Icon size={26} className="group-hover:scale-110 transition" />
+                </a>
+              ))}
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
   )

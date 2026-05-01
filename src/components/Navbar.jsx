@@ -98,6 +98,20 @@ export default function Navbar() {
             </NavLink>
           </li>
 
+          <NavLink
+    to="/documents"
+    onClick={handleLinkClick}
+    className={({ isActive }) =>
+      `block px-3 py-2 border-b-2 transition ${
+        isActive
+          ? "border-black font-semibold text-black"
+          : "border-transparent hover:border-black hover:text-black"
+      }`
+    }
+  >
+    Docs
+  </NavLink>
+
           <li>
             <Link
               to="/contact"
@@ -107,6 +121,9 @@ export default function Navbar() {
               Get in Touch
             </Link>
           </li>
+          <li>
+  
+</li>
         </ul>
       </div>
     </nav>

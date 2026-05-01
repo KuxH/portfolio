@@ -5,6 +5,7 @@ import About from "./components/About"
 import Projects from "./components/Projects"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
+import Documents from "./components/documents"
 import "./index.css"
 
 function Home() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/documents" element={<Documents />} />
         </Routes>
       </main>
       <Footer />
