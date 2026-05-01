@@ -1,5 +1,4 @@
 
-9d3c7f592b6e6e2fd7cd126e8ce27df4fd639a7a
 import { FaArrowUpRightFromSquare } from "react-icons/fa6"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
@@ -38,7 +37,7 @@ export default function Projects() {
       url: "https://your-hetauda-book-house-link.com",
 
       url: "https://github.com/KuxH/hetaudabookhouse",
- 9d3c7f592b6e6e2fd7cd126e8ce27df4fd639a7a
+
       tags: ["React", "Tailwind", "Firebase"],
       roles: ["Full Stack Developer"],
     },
