@@ -13,9 +13,11 @@ export default function AboutEducation() {
       university: "Pokhara University",
       universityUrl: "https://pu.edu.np/",
       year: "2019 - 2025",
+
       details:
 "Focused on full-stack development, system design, and real-world applications. Built multiple production-level projects including web apps and automation tools.",
 tags: ["Full-Stack", "DSA", "System Design", "DBMS", "Networking", "Project Management", "AI Automation" ],
+
     },
     {
       degree: "+2, Science",
