@@ -1,19 +1,19 @@
-import { Routes, Route } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import Hero from "./components/Hero"
-import About from "./components/About"
-import Projects from "./components/Projects"
-import Contact from "./components/Contact"
-import Footer from "./components/Footer"
-import Documents from "./components/documents"
-import "./index.css"
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import Documents from "./components/documents";
+import "./index.css";
 
 function Home() {
   return (
     <>
       <Hero />
     </>
-  )
+  );
 }
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

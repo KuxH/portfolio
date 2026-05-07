@@ -1,15 +1,15 @@
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { FaFilePdf, FaLock, FaEye, FaTimes } from "react-icons/fa"
-import "./Hero.css"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaFilePdf, FaLock, FaEye, FaTimes } from "react-icons/fa";
+import "./Hero.css";
 
 export default function Documents() {
-  const [selectedDoc, setSelectedDoc] = useState(null)
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState(false)
-  const [unlocked, setUnlocked] = useState([])
+  const [selectedDoc, setSelectedDoc] = useState(null);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [unlocked, setUnlocked] = useState([]);
 
-  const ACCESS_KEY = "kushal2025"
+  const ACCESS_KEY = "kushal2025";
 
   const documents = [
     {
@@ -32,48 +32,43 @@ export default function Documents() {
       type: "Professional Credential",
       file: "https://nec.gov.np/registration/98513",
     },
-  ]
+  ];
 
   const openDoc = (doc) => {
-    setSelectedDoc(doc)
-    setPassword("")
-    setError(false)
-  }
+    setSelectedDoc(doc);
+    setPassword("");
+    setError(false);
+  };
 
   const closeModal = () => {
-    setSelectedDoc(null)
-    setPassword("")
-    setError(false)
-  }
+    setSelectedDoc(null);
+    setPassword("");
+    setError(false);
+  };
 
   const unlockDocument = () => {
     if (password === ACCESS_KEY) {
-      setUnlocked((prev) => [...prev, selectedDoc.title])
-      setError(false)
+      setUnlocked((prev) => [...prev, selectedDoc.title]);
+      setError(false);
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
-  const isUnlocked = (title) => unlocked.includes(title)
+  const isUnlocked = (title) => unlocked.includes(title);
 
   return (
     <section className="docs-vault">
-
       {/* SOFT BACKGROUND */}
       <div className="vault-glow-left" />
       <div className="vault-glow-right" />
 
       <div className="vault-container">
-
         {/* TITLE */}
-        <h2 className="vault-title">
-          📄 Documents Vault
-        </h2>
+        <h2 className="vault-title">📄 Documents Vault</h2>
 
         {/* GRID */}
         <div className="vault-grid">
-
           {documents.map((doc, i) => (
             <motion.div
               key={i}
@@ -81,9 +76,7 @@ export default function Documents() {
               onClick={() => openDoc(doc)}
               className="vault-card"
             >
-
               <div className="vault-card-top">
-
                 <div className="vault-file-info">
                   <FaFilePdf className="vault-icon" />
 
@@ -98,14 +91,12 @@ export default function Documents() {
                 ) : (
                   <span className="badge locked">Locked</span>
                 )}
-
               </div>
 
               <div className="vault-footer">
                 <FaEye />
                 Click to preview
               </div>
-
             </motion.div>
           ))}
         </div>
@@ -120,14 +111,12 @@ export default function Documents() {
             exit={{ opacity: 0 }}
             className="vault-modal"
           >
-
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="vault-modal-box"
             >
-
               {/* HEADER */}
               <div className="vault-modal-header">
                 <h3>{selectedDoc.title}</h3>
@@ -139,11 +128,9 @@ export default function Documents() {
 
               {/* BODY */}
               <div className="vault-modal-body">
-
                 {/* LOCK OVERLAY */}
                 {!isUnlocked(selectedDoc.title) && (
                   <div className="vault-lock-screen">
-
                     <FaLock className="lock-icon" />
 
                     <p>This document is protected</p>
@@ -155,32 +142,22 @@ export default function Documents() {
                       placeholder="Enter access key"
                     />
 
-                    {error && (
-                      <p className="error">Incorrect access key</p>
-                    )}
+                    {error && <p className="error">Incorrect access key</p>}
 
-                    <button onClick={unlockDocument}>
-                      Unlock Document
-                    </button>
-
+                    <button onClick={unlockDocument}>Unlock Document</button>
                   </div>
                 )}
 
                 {/* PREVIEW */}
                 <iframe
                   src={selectedDoc.file}
-                  className={`vault-preview ${
-                    !isUnlocked(selectedDoc.title) 
-                  }`}
+                  className={`vault-preview ${!isUnlocked(selectedDoc.title)}`}
                 />
-
               </div>
             </motion.div>
-
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
-  )
+  );
 }
