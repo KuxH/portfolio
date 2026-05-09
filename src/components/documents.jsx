@@ -150,9 +150,10 @@ export default function Documents() {
 
                 {/* PREVIEW */}
                 <iframe
-                  src={selectedDoc.file}
-                  className={`vault-preview ${!isUnlocked(selectedDoc.title)}`}
-                />
+  src={selectedDoc.file}
+  title={selectedDoc.title}
+  className={`vault-preview ${!isUnlocked(selectedDoc.title)}`}
+/>
               </div>
             </motion.div>
           </motion.div>
